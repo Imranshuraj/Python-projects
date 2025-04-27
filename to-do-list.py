@@ -6,14 +6,15 @@ def display_menu():
   print("2. Add Task")
   print("3. Remove Task")
   print("4. Mark Task as Processing")
-  print("5. Exit")
+  print("5. Mark task as completed")
+  print("6. Exit")
   
 #Function that show the tasks
 def display_tasks(tasks):
   if not tasks:
     print("There are no tasks here.")
   else:
-    print("Here are your tasks:")
+    print("Here are your tasks: \n")
     for i, task in enumerate(tasks, start=1):
       print(f"Task {i}. {task}")
 
@@ -42,10 +43,24 @@ def mark_task_as_processing(tasks):
   display_tasks(tasks)
   if tasks:
     try:
-      task_num = int(input("\nEnter the number of the task to add task as processing:"))
+      task_num = int(input("\nEnter the number of the task to mark task as processing:"))
       if 1 <= task_num <= len(tasks):
         tasks[task_num -1] += " [Task is under processing]"
-        print(f"Task {task_num} has been added as processing.")
+        print(f"Task {task_num} has been marked as processing.")
+      else:
+        print("Invalid task number.")
+    except ValueError:
+      print("Please enter a valid number.")
+     
+#Function to add task is completed
+def mark_task_as_completed(tasks):
+  display_tasks(tasks)
+  if tasks:
+    try:
+      task_num = int(input("\nEnter the number of task to mark task  as completed"))
+      if 1 <= task_num <= len(tasks):
+         tasks[task_num - 1] += "[Task is completed]"
+         print(f"Task {task_num} has been marked as completed.")
       else:
         print("Invalid task number.")
     except ValueError:
@@ -57,7 +72,7 @@ def main():
   display_menu()
   while True:
     choice = input("\nPlease select  an option (1-5): ")
-    print("=========================================================")
+    print("=========================================================\n")
     if choice == "1":
       display_tasks(tasks)
     elif choice == "2":
@@ -67,6 +82,8 @@ def main():
     elif choice == "4":
       mark_task_as_processing(tasks)
     elif choice == "5":
+      mark_task_as_completed(tasks)
+    elif choice == "6":
       print("Now you have exited the program. Goodbye!")
       break
     else:
